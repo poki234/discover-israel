@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Discover Israel &amp; Tel Aviv — The Complete Guide</title>
+<meta name="description" content="A high-detail guide to Israel and Tel Aviv: neighborhoods, beaches, markets, food, day trips and hidden secrets.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Design system from UI/UX Pro Max skill data:
+     Travel/Tourism → Storytelling-Driven + Hero-Centric,
+     Aurora UI + Motion-Driven, sky blue + warm sunset accents,
+     Playfair Display + Inter (Classic Elegant pairing) */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --sky: #0077C2;
+    --sky-deep: #005A94;
+    --sunset: #F59E0B;
+    --sunset-deep: #D97706;
+    --coral: #FF6B5E;
+    --sand: #FDF6EC;
+    --card: #ffffff;
+    --text: #22303C;
+    --muted: #5B6B78;
+    --radius: 16px;
+    --shadow: 0 6px 24px rgba(0, 90, 148, 0.10);
+    --shadow-lift: 0 14px 34px rgba(0, 90, 148, 0.18);
+    --grad-hero: linear-gradient(160deg, #005A94 0%, #0077C2 34%, #19A7CE 58%, #F59E0B 100%);
+    --grad-soft: linear-gradient(135deg, rgba(0,119,194,0.10), rgba(245,158,11,0.10));
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 16px; line-height: 1.7;
+    background: var(--sand); color: var(--text);
+  }
+
+  h1, h2, h3, .serif { font-family: 'Playfair Display', Georgia, serif; }
+
+  :focus-visible { outline: 3px solid var(--sky); outline-offset: 2px; border-radius: 6px; }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative; min-height: 92vh;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; overflow: hidden;
+    background: var(--grad-hero); color: #fff;
+    padding: 6rem 1.5rem 5rem;
+  }
+  .hero::before, .hero::after {
+    content: ""; position: absolute; border-radius: 50%;
+    filter: blur(70px); opacity: 0.5; pointer-events: none;
+    animation: drift 16s ease-in-out infinite alternate;
+  }
+  .hero::before { width: 55vw; height: 55vw; background: rgba(255,255,255,0.25); top: -20%; left: -12%; }
+  .hero::after { width: 45vw; height: 45vw; background: rgba(255,107,94,0.45); bottom: -22%; right: -10%; animation-delay: -8s; }
+  @keyframes drift {
+    from { transform: translate3d(0,0,0) scale(1); }
+    to   { transform: translate3d(4%, 6%, 0) scale(1.15); }
+  }
+  .hero-inner { position: relative; z-index: 2; max-width: 820px; }
+  .hero h1 {
+    font-size: clamp(2.6rem, 7vw, 4.6rem); font-weight: 800; line-height: 1.12;
+    text-shadow: 0 4px 30px rgba(0,40,70,0.35);
+  }
+  .hero .tagline { font-size: 1.2rem; margin-top: 1.2rem; opacity: 0.94; font-weight: 300; }
+  .hero .cta-row { margin-top: 2.4rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.95rem 1.9rem; border-radius: 999px;
+    font-weight: 600; text-decoration: none; font-size: 1rem;
+    min-height: 44px; cursor: pointer; border: none; font-family: inherit;
+    transition: transform 200ms ease, box-shadow 200ms ease, background 200ms ease;
+  }
+  .btn-primary { background: #fff; color: var(--sky-deep); box-shadow: 0 6px 20px rgba(0,30,60,0.25); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(0,30,60,0.32); }
+  .btn-ghost { background: rgba(255,255,255,0.14); color: #fff; border: 1.5px solid rgba(255,255,255,0.55); }
+  .btn-ghost:hover { background: rgba(255,255,255,0.24); }
+
+  /* ---------- Nav ---------- */
+  nav {
+    position: sticky; top: 0; z-index: 40;
+    background: rgba(255,255,255,0.94); backdrop-filter: blur(10px);
+    box-shadow: 0 1px 8px rgba(0,90,148,0.10);
+    display: flex; justify-content: center; flex-wrap: wrap; gap: 0.25rem;
+    padding: 0.55rem 1rem;
+  }
+  nav a {
+    color: var(--sky-deep); text-decoration: none; font-weight: 600; font-size: 0.95rem;
+    padding: 0.55rem 0.95rem; border-radius: 999px; min-height: 40px;
+    display: inline-flex; align-items: center; transition: background 200ms ease;
+  }
+  nav a:hover { background: rgba(0,119,194,0.10); }
+
+  /* ---------- Sections ---------- */
+  section { padding: 4.5rem 0; }
+  .kicker {
+    text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem; font-weight: 700;
+    color: var(--sunset-deep); text-align: center;
+  }
+  h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); text-align: center; margin: 0.4rem 0 0.8rem; color: #16323F; }
+  .lead { text-align: center; color: var(--muted); max-width: 680px; margin: 0 auto 2.6rem; }
+
+  .grid { display: grid; gap: 1.4rem; }
+  .grid-4 { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+  .grid-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .grid-2 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+
+  .card {
+    background: var(--card); border-radius: var(--radius);
+    box-shadow: var(--shadow); padding: 1.7rem;
+    transition: transform 250ms ease, box-shadow 250ms ease;
+    position: relative;
+  }
+  .card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lift); }
+  .card h3 { font-size: 1.25rem; margin-bottom: 0.45rem; color: #16323F; }
+  .card p { color: var(--muted); font-size: 0.96rem; }
+  .card .flag { font-size: 1.9rem; display: block; margin-bottom: 0.6rem; }
+  .card .tag {
+    display: inline-block; margin-top: 0.9rem; padding: 0.25rem 0.75rem;
+    border-radius: 999px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.5px;
+    background: var(--grad-soft); color: var(--sky-deep); text-transform: uppercase;
+  }
+
+  /* ---------- Tel Aviv deep dive ---------- */
+  .tlv-band { background: linear-gradient(180deg, #ffffff 0%, #F2F9FD 100%); border-block: 1px solid rgba(0,119,194,0.10); }
+  .hood {
+    border-left: 4px solid var(--sky); padding-left: 1.1rem;
+  }
+  .hood h3 { color: var(--sky-deep); }
+  .food-card { text-align: center; }
+  .food-card .emoji { font-size: 2.6rem; display: block; margin-bottom: 0.5rem; }
+
+  .itinerary { counter-reset: day; }
+  .day {
+    background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow);
+    padding: 1.6rem 1.7rem 1.6rem 4.6rem; position: relative; margin-bottom: 1.1rem;
+  }
+  .day::before {
+    counter-increment: day; content: counter(day);
+    position: absolute; left: 1.1rem; top: 1.35rem;
+    width: 2.2rem; height: 2.2rem; border-radius: 50%;
+    background: var(--grad-hero); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-family: 'Playfair Display', serif; font-size: 1.05rem;
+  }
+  .day h3 { font-size: 1.15rem; margin-bottom: 0.3rem; }
+  .day p { color: var(--muted); font-size: 0.95rem; }
+
+  /* ---------- Practical ---------- */
+  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem; }
+  .fact {
+    background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow);
+    padding: 1.4rem; text-align: center;
+  }
+  .fact strong { display: block; font-family: 'Playfair Display', serif; font-size: 1.25rem; color: var(--sky-deep); margin-bottom: 0.25rem; }
+  .fact span { color: var(--muted); font-size: 0.92rem; }
+
+  /* ---------- Secret beans ---------- */
+  .bean {
+    position: absolute; z-index: 5;
+    background: none; border: none; cursor: pointer;
+    font-size: 1.15rem; opacity: 0.13; filter: grayscale(0.6);
+    transition: opacity 200ms ease, transform 200ms ease;
+    padding: 6px; line-height: 1;
+  }
+  .bean:hover { opacity: 0.85; transform: scale(1.25) rotate(-8deg); }
+  .bean.found { opacity: 0.9; filter: none; animation: beanPop 500ms ease; }
+  @keyframes beanPop { 0% { transform: scale(1); } 50% { transform: scale(1.7) rotate(10deg); } 100% { transform: scale(1.15); } }
+
+  .bean-tracker {
+    position: fixed; bottom: 1.1rem; right: 1.1rem; z-index: 60;
+    background: rgba(22,50,63,0.92); color: #fff; backdrop-filter: blur(6px);
+    border-radius: 999px; padding: 0.55rem 1.1rem; font-size: 0.9rem; font-weight: 600;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25); opacity: 0; pointer-events: none;
+    transition: opacity 300ms ease;
+  }
+  .bean-tracker.show { opacity: 1; }
+
+  /* ---------- Modals ---------- */
+  .modal-backdrop {
+    position: fixed; inset: 0; z-index: 100;
+    background: rgba(10, 20, 30, 0.72); backdrop-filter: blur(4px);
+    display: none; align-items: center; justify-content: center; padding: 1.5rem;
+  }
+  .modal-backdrop.open { display: flex; animation: fadeIn 250ms ease; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .modal {
+    background: var(--card); border-radius: 20px; max-width: 560px; width: 100%;
+    padding: 2.4rem 2.2rem; box-shadow: 0 24px 70px rgba(0,0,0,0.4);
+    position: relative; animation: modalUp 300ms ease; max-height: 86vh; overflow: auto;
+  }
+  @keyframes modalUp { from { transform: translateY(24px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  .modal h3 { font-size: 1.6rem; margin-bottom: 0.9rem; color: #16323F; }
+  .modal p { color: var(--muted); margin-bottom: 0.8rem; }
+  .modal .close {
+    position: absolute; top: 0.9rem; right: 1rem; background: none; border: none;
+    font-size: 1.6rem; cursor: pointer; color: var(--muted); min-width: 44px; min-height: 44px;
+  }
+  .modal .big { font-size: 3rem; display: block; text-align: center; margin-bottom: 0.6rem; }
+  .modal .dagger-line { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: #7A1F1F; text-align: center; font-style: italic; }
+  .modal .lore {
+    background: linear-gradient(145deg, #1C1420, #2B1B33); color: #E8DDF5;
+    border-radius: 12px; padding: 1.2rem 1.4rem; margin: 1rem 0;
+    font-family: 'Playfair Display', serif; font-style: italic; line-height: 1.8;
+  }
+  .modal .lore strong { color: #C9A8F0; }
+
+  /* Secret Roose section */
+  .roose-secret {
+    background: linear-gradient(145deg, #101820, #1B2A38); color: #DCE8F2;
+    border-radius: 20px; padding: 3rem 2rem; text-align: center;
+    box-shadow: var(--shadow-lift);
+  }
+  .roose-secret h3 { color: #8FD0FF; font-size: 1.7rem; margin-bottom: 1rem; }
+  .roose-secret p { max-width: 620px; margin: 0 auto 0.8rem; opacity: 0.92; }
+  .roose-secret .medal { font-size: 2.6rem; display: block; margin-bottom: 0.8rem; }
+
+  footer { background: #16323F; color: #B9CBD6; text-align: center; padding: 3rem 1.5rem; font-size: 0.9rem; }
+  footer a { color: #8FD0FF; }
+
+  .hint { text-align: center; color: var(--muted); font-size: 0.85rem; font-style: italic; margin-top: 2.5rem; opacity: 0.8; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .hero::before, .hero::after, .bean.found { animation: none; }
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="hero-inner">
+    <h1>Discover<br>Israel &amp; Tel Aviv</h1>
+    <p class="tagline">From the ancient stones of Jerusalem to the electric shoreline of the city that never stops — your complete, deeply-detailed guide.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#telaviv">Explore Tel Aviv</a>
+      <a class="btn btn-ghost" href="#destinations">All Destinations</a>
+    </div>
+  </div>
+</header>
+
+<nav aria-label="Main navigation">
+  <a href="#destinations">Destinations</a>
+  <a href="#telaviv">Tel Aviv</a>
+  <a href="#beaches">Beaches</a>
+  <a href="#food">Food</a>
+  <a href="#itinerary">5-Day Plan</a>
+  <a href="#practical">Practical</a>
+</nav>
+
+<!-- ============ INTRO ============ -->
+<section id="intro">
+  <div class="wrap">
+    <p class="kicker">Welcome</p>
+    <h2>A Country the Size of New Jersey, Packed with Worlds</h2>
+    <p class="lead">Israel compresses deserts, mountains, forests, ancient cities and 270&nbsp;km of Mediterranean coastline into one small, intense country. Three seas touch its shores, four climate zones shape its landscapes, and over 200 museums fill its cities. You can ski on the Golan in the morning and float in the Dead Sea by lunch.</p>
+    <div class="facts">
+      <div class="fact"><strong>~9.9 million</strong><span>people call it home</span></div>
+      <div class="fact"><strong>3 seas</strong><span>Mediterranean, Dead Sea, Red Sea</span></div>
+      <div class="fact"><strong>300+ days</strong><span>of sunshine per year</span></div>
+      <div class="fact"><strong>₪ Shekel</strong><span>currency (ILS, ~3.7 = $1)</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DESTINATIONS ============ -->
+<section id="destinations" style="background: linear-gradient(180deg,#F2F9FD,#FDF6EC);">
+  <div class="wrap">
+    <p class="kicker">Beyond the Capital of Cool</p>
+    <h2>Eight Destinations You Can't Skip</h2>
+    <p class="lead">Most fly into Tel Aviv, but the country rewards travelers who venture out. Every destination below is a day trip or an easy overnight from the city.</p>
+    <div class="grid grid-4">
+      <div class="card">
+        <span class="flag">🕌</span>
+        <h3>Jerusalem</h3>
+        <p>The Old City's four quarters pack the Western Wall, the Church of the Holy Sepulchre and the Dome of the Rock into one square kilometre. Walk the ramparts, then get lost in the souk.</p>
+        <span class="tag">1 hr from TLV</span>
+      </div>
+      <div class="card">
+        <span class="flag">🧂</span>
+        <h3>Dead Sea</h3>
+        <p>Earth's lowest point at 430&nbsp;m below sea level. Float effortlessly in water ten times saltier than the ocean, then coat yourself in mineral mud at Ein Gedi or Ein Bokek beaches.</p>
+        <span class="tag">1.5 hrs from TLV</span>
+      </div>
+      <div class="card">
+        <span class="flag">🏰</span>
+        <h3>Masada</h3>
+        <p>Herod's cliff-top fortress above the Dead Sea. Hike the Snake Path at sunrise or take the cable car; the ruins and the views over the Judean desert are unforgettable.</p>
+        <span class="tag">Sunrise hike</span>
+      </div>
+      <div class="card">
+        <span class="flag">🌊</span>
+        <h3>Haifa &amp; Akko</h3>
+        <p>The terraced Bahá'í Gardens cascade down Mount Carmel, while nearby Akko hides a Crusader city beneath its old-town streets and the best hummus in the north.</p>
+        <span class="tag">1 hr north</span>
+      </div>
+      <div class="card">
+        <span class="flag">⛰️</span>
+        <h3>Sea of Galilee</h3>
+        <p>Israel's freshwater heart: hot springs at Hamat Gader, the Jesus Trail between Nazareth and Capernaum, and kite-surfing when the wind picks up.</p>
+        <span class="tag">2 hrs north</span>
+      </div>
+      <div class="card">
+        <span class="flag">🤿</span>
+        <h3>Eilat</h3>
+        <p>Israel's Red Sea resort at the tip of the desert. Coral reefs made for snorkelling and diving, dolphin reefs, desert parks, and duty-free shopping on the Egyptian and Jordanian borders.</p>
+        <span class="tag">4.5 hrs south</span>
+      </div>
+      <div class="card">
+        <span class="flag">🏛️</span>
+        <h3>Caesarea</h3>
+        <p>Herod's Roman port city: a seaside amphitheatre still used for concerts, Crusader walls, and an 18-hole golf course next to ancient aqueduct beaches.</p>
+        <span class="tag">45 min north</span>
+      </div>
+      <div class="card">
+        <span class="flag">⛪</span>
+        <h3>Nazareth</h3>
+        <p>The largest Arab city in Israel. The Basilica of the Annunciation, the recreated first-century Nazareth Village, and a legendary food scene around the old market.</p>
+        <span class="tag">1.5 hrs north</span>
+      </div>
+    </div>
+
+    <!-- BEAN #1 -->
+    <button class="bean" style="top: 12px; right: 4%;" data-bean="1" aria-label="a curious bean">🫘</button>
+  </div>
+</section>
+
+<!-- ============ TEL AVIV ============ -->
+<section id="telaviv" class="tlv-band">
+  <div class="wrap">
+    <p class="kicker">The White City</p>
+    <h2>Tel Aviv: The Deep Dive</h2>
+    <p class="lead">A UNESCO-listed Bauhaus gem wrapped around beaches, tech towers and the craziest food scene in the Middle East. This is a city of neighborhoods — each with its own accent, smell and soundtrack.</p>
+
+    <div class="grid grid-2">
+      <div class="card hood">
+        <h3>Old Jaffa (Yafo)</h3>
+        <p>Tel Aviv's 4,000-year-old soul. Wander the sandstone alleyways of the old port at dusk, watch fishermen on the wharf, browse the galleries and the flea market, and eat hummus at Abu Hassan — arguably the country's most obsessive queue. The hilltop park gives you the postcard skyline shot back at the modern city.</p>
+      </div>
+      <div class="card hood">
+        <h3>Neve Tzedek</h3>
+        <p>The city's first neighborhood (1887) — now its prettiest. Pastel low-rise houses, boutique fashion, the striking Rohr House architecture, and the Suzanne Dellal dance centre. Come Sunday morning for quiet streets and the best specialty coffee density in the city.</p>
+      </div>
+      <div class="card hood">
+        <h3>Florentin</h3>
+        <p>The gritty-south-turned-cool quarter. Street art covers entire blocks (take a graffiti tour), specialty bakers and natural-wine bars fill former workshops, and Levinsky Market at its edge is the spice-and-deli heartland of the city.</p>
+      </div>
+      <div class="card hood">
+        <h3>Rothschild Boulevard</h3>
+        <p>The White City's showcase: a tree-lined central promenade under Bauhaus and Eclectic buildings, espresso kiosks, and startup offices humming above. Visit the Independence Hall where Israel was declared a state in 1948, then join the evening paseo.</p>
+      </div>
+      <div class="card hood">
+        <h3>Dizengoff &amp; the North</h3>
+        <p>Dizengoff Square (recently beautifully restored) anchors the classic TLV café strip. Continue north to Port Tel Aviv for sunset drinks on the pier, and the Yarkon Park riverside for rowboats and concerts.</p>
+      </div>
+      <div class="card hood">
+        <h3>Carmel Market (Shuk HaCarmel)</h3>
+        <p>The city's roar: a half-mile of fruit pyramids, halva mountains, bourekas stands, cold-squeezed juice, and hip bakeries squeezing between the stalls. Go Friday morning for the full pre-Shabbat theatre — and try the sabich at the famous corner stands.</p>
+      </div>
+    </div>
+
+    <!-- BEAN #2 hidden inside the band -->
+    <button class="bean" style="top: -6px; left: 3%;" data-bean="2" aria-label="a suspicious bean">🫘</button>
+
+    <!-- Museums & culture -->
+    <div class="grid grid-3" style="margin-top: 2.2rem;">
+      <div class="card">
+        <h3>🏛️ Tel Aviv Museum of Art</h3>
+        <p>Israeli and modern European masters in a sculptural Herta &amp; Paul Amir building. Free-ish entry days vary; the Impressionist wing punches far above its weight.</p>
+      </div>
+      <div class="card">
+        <h3>🏗️ The Bauhaus Walk</h3>
+        <p>Over 4,000 Bauhaus and International Style buildings — the world's largest concentration. The visitor centre on Bialik Street runs self-guided route maps of the White City.</p>
+      </div>
+      <div class="card">
+        <h3>🎤 Culture at Night</h3>
+        <p>The Israeli Opera, Habima theatre, and Yitzhak Rabin Square's open-air events. Then join the locals on Rothschild or in Florentin's bar alleys until very, very late.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BEACHES ============ -->
+<section id="beaches">
+  <div class="wrap">
+    <p class="kicker">14 km of Coastline</p>
+    <h2>The Beach Strip, Beach by Beach</h2>
+    <p class="lead">The whole city faces the Mediterranean. Lifeguarded (swim only between the flags!), with a continuous promenade — you can walk or rent a bike from Jaffa to the northern port.</p>
+    <div class="grid grid-4">
+      <div class="card"><h3>🏖️ Gordon &amp; Frishman</h3><p>The classic scene: beach volleyball nets, matkot (paddleball) clacking, and the famous deckchair-and-mattress service in summer.</p></div>
+      <div class="card"><h3>🐕 Hilton Beach</h3><p>The north end's free spirit — a dog beach on one side, a surf break with real waves on the other. Sunset drum circles are a tradition.</p></div>
+      <div class="card"><h3>🧘 Metzitzim</h3><p>Family-friendly and calmer, with the legendary Metzitzim beach bar next door. Great for morning swims before work.</p></div>
+      <div class="card"><h3>🌅 Banana Beach</h3><p>By Old Jaffa — the backpacker classic, bonfires at night, and the best angle to photograph Jaffa's ridge at golden hour.</p></div>
+    </div>
+    <!-- BEAN #3 buried in the sand -->
+    <button class="bean" style="bottom: 10px; right: 22%;" data-bean="3" aria-label="a bean in the sand">🫘</button>
+  </div>
+</section>
+
+<!-- ============ FOOD ============ -->
+<section id="food" class="tlv-band">
+  <div class="wrap">
+    <p class="kicker">Eat Like a Local</p>
+    <h2>The Food Pilgrimages</h2>
+    <p class="lead">Tel Aviv is a top-tier food city. These are the plates that define it — and where locals actually queue for them.</p>
+    <div class="grid grid-3">
+      <div class="card food-card"><span class="emoji">🥙</span><h3>Hummus</h3><p>Abu Hassan (Jaffa) — creamy, lemony, served with warm pita and ful. Hummus Abu Dabi and Hummus Felafel on Yehuda Halevi hold their own cult followings.</p></div>
+      <div class="card food-card"><span class="emoji">🍳</span><h3>Shakshuka</h3><p>Eggs poached in tomato-pepper stew. Dr. Shakshuka in Jaffa serves it in the pan; every café has a version — order extra bread, always.</p></div>
+      <div class="card food-card"><span class="emoji">🫓</span><h3>Sabich</h3><p>Fried eggplant, boiled egg, tahini and amba (pickled mango) in pita — the Iraqi-Jewish gift to breakfast. The Carmel Market corner stands are the temple.</p></div>
+      <div class="card food-card"><span class="emoji">🥖</span><h3>Bourekas</h3><p>Flaky Balkan pastries stuffed with cheese, potato or mushrooms. Rule of locals: sprinkle with sesame, dip in pickles brine, eat standing up.</p></div>
+      <div class="card food-card"><span class="emoji">🐟</span><h3>Markets &amp; Meydan</h3><p>Sarona Market for the modern food-hall crawl; Levinsky for Persian spice houses and aged cheese; Jaffa's flea market for hip bistros in courtyards.</p></div>
+      <div class="card food-card"><span class="emoji">🍺</span><h3>Arak &amp; Wine Nights</h3><p>Natural-wine bars across Florentin and Neve Tzedek, Israeli craft breweries, and arak with grapefruit juice on any beach bar's chalkboard.</p></div>
+    </div>
+
+    <!-- BEAN #4 hiding in the food section -->
+    <button class="bean" style="top: 30%; left: 2%;" data-bean="4" aria-label="a hungry bean">🫘</button>
+  </div>
+</section>
+
+<!-- ============ ITINERARY ============ -->
+<section id="itinerary">
+  <div class="wrap">
+    <p class="kicker">Perfect First Trip</p>
+    <h2>A 5-Day Master Plan</h2>
+    <p class="lead">Built for a first visit: city, coast, ancients, and desert — without ever changing hotels more than once.</p>
+    <div class="itinerary">
+      <div class="day"><h3>Arrival + Jaffa sunset</h3><p>Land, drop bags, coffee on Rothschild, then Old Jaffa for the flea market, Abu Hassan hummus, and sunset over the skyline from the hilltop park. Dinner in the flea-market courtyards.</p></div>
+      <div class="day"><h3>The White City</h3><p>Bauhaus walk in the morning, Bialik Street and the museum, lunch at the Carmel Market, afternoon on Gordon Beach, evening drinks on the Tel Aviv Port pier.</p></div>
+      <div class="day"><h3>Jerusalem day trip</h3><p>First train or bus out. Old City: Western Wall, the Cardo, the four quarters, Mahane Yehuda market for lunch, and Mount of Olives views. Return by night for Florentin bars.</p></div>
+      <div class="day"><h3>Dead Sea &amp; Masada</h3><p>Sunrise (or cable car) up Masada, Ein Gedi springs hike, then float in the Dead Sea and mud up at Ein Bokek. Home for a well-earned beach-bar dinner.</p></div>
+      <div class="day"><h3>North coast finale</h3><p>Caesarea's Roman port and amphitheatre, Haifa's Bahá'í Gardens, and Akko's Crusader halls with its famous hummus. Sunset flight out of Ben Gurion, or one more night in the city that never stops.</p></div>
+    </div>
+
+    <!-- BEAN #5 keeping the itinerary company -->
+    <button class="bean" style="bottom: 0; left: 45%;" data-bean="5" aria-label="an itinerary-loving bean">🫘</button>
+  </div>
+</section>
+
+<!-- ============ PRACTICAL ============ -->
+<section id="practical" class="tlv-band">
+  <div class="wrap">
+    <p class="kicker">Know Before You Go</p>
+    <h2>Practical Intelligence</h2>
+    <p class="lead">The stuff guidebooks bury and locals know by heart.</p>
+    <div class="grid grid-4">
+      <div class="card"><h3>📅 When to Come</h3><p>March–May and September–November are perfect: warm sea, clear skies, thin crowds. Summer is hot and busy; winter is mild but rainy (16–20°C).</p></div>
+      <div class="card"><h3>🚆 Getting Around</h3><p>Trains link the airport to TLV in 20 minutes. Buses + the new light rail cover the city with the Rav-Kav card; electric bikes and scooters everywhere. Shabbat (Fri eve–Sat) pauses most buses.</p></div>
+      <div class="card"><h3>🗣️ Survival Phrases</h3><p><em>Shalom</em> (hello/peace), <em>slicha</em> (excuse me), <em>bevakasha</em> (please), <em>toda</em> (thanks), <em>beseder</em> (it's all good — the national life philosophy).</p></div>
+      <div class="card"><h3>💸 Money</h3><p>Shekel (₪/ILS). Cards work almost everywhere; get small cash for shuk stalls. Tipping: 10–12% in restaurants. Tax-free shopping refunds at the airport.</p></div>
+      <div class="card"><h3>🕐 The Rhythm</h3><p>Shops closed Friday evening + Saturday for Shabbat (restaurants and beaches open). Sunday is a workday. Dinner reservations genuinely needed Thu–Sat.</p></div>
+      <div class="card"><h3>🔒 Safety Sense</h3><p>Tourist areas are well-policed; normal city precautions apply. Follow Home Front Command alerts if sirens sound; drink water and use sunscreen like it's your job.</p></div>
+      <div class="card"><h3>🔌 Plug In</h3><p>Type C/H sockets, 230V — European plugs fit. Local SIMs from Partner/HOT/Pelephone at the airport, or just use the free beach and café Wi-Fi.</p></div>
+      <div class="card"><h3>🛍️ Bring Home</h3><p>Dead Sea skincare, halva and za'atar from the shuk, Jaffa flea-market finds, and olive wood from Nazareth. Wine from the Golan is underrated.</p></div>
+    </div>
+    <!-- BEAN #6 doing some shopping -->
+    <button class="bean" style="top: 8px; right: 30%;" data-bean="6" aria-label="a shopping bean">🫘</button>
+  </div>
+</section>
+
+<!-- ============ SECRET: ROOSE ============ -->
+<section id="honors" style="display: none;" aria-hidden="true">
+  <div class="wrap">
+    <div class="roose-secret">
+      <span class="medal">🎖️</span>
+      <h3>Hidden Tribute: The Roose Wing</h3>
+      <p>You typed the name that must not be googled casually. Somewhere between the Bauhaus blocks and the Jaffa breakwater stands, in spirit, a very specific bench — and it is reserved, in perpetuity, for <strong class="serif">Roose</strong>.</p>
+      <p class="serif" style="font-style: italic; font-size: 1.1rem; color: #8FD0FF;">"For Roose, who asked for a special mention, and received a whole secret wing. Honor him quietly."</p>
+      <p style="font-size: 0.85rem; opacity: 0.7;">Unlocked by those who know. Tell no one. Or everyone. Beseder either way.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><strong class="serif" style="color:#fff;">Discover Israel &amp; Tel Aviv</strong> — a high-detail fan-made travel guide.</p>
+  <p style="margin-top: 0.4rem;">Check current travel advisories before booking. Prices and opening hours shift; shuks never do.</p>
+  <p style="margin-top: 1.2rem; font-size: 0.8rem; opacity: 0.7;">Some beans hide here. They remember everything. 🫘<!-- BEAN #7, the footer keeper --><button class="bean" style="position: static;" data-bean="7" aria-label="the last bean">🫘</button></p>
+</footer>
+
+<div class="bean-tracker" id="beanTracker">🫘 <span id="beanCount">0</span>/7 beans found — The Big Bean stirs…</div>
+
+<!-- ============ MODALS ============ -->
+<div class="modal-backdrop" id="beanModal" role="dialog" aria-modal="true" aria-labelledby="beanTitle">
+  <div class="modal">
+    <button class="close" data-close aria-label="Close">×</button>
+    <span class="big">🫘</span>
+    <h3 id="beanTitle">Bean <span id="beanNum">1</span> of 7</h3>
+    <div class="lore" id="beanLore"></div>
+    <p style="text-align:center; font-size: 0.9rem;">Find all seven to summon <strong>The Big Bean</strong>.</p>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="bigBeanModal" role="dialog" aria-modal="true" aria-labelledby="bigBeanTitle">
+  <div class="modal" style="max-width: 620px;">
+    <button class="close" data-close aria-label="Close">×</button>
+    <span class="big">🫘⚔️</span>
+    <h3 id="bigBeanTitle" style="text-align:center;">THE BIG BEAN HAS AWOKEN</h3>
+    <div class="lore">
+      Long before Jaffa had a name, before Rothschild had a boulevard, there was <strong>The Big Bean</strong> — a legume of impossible size and unfathomable purpose.<br><br>
+      They say he patrols the Carmel Market at 3 a.m., tasting nothing, judging everything. They say his shadow once covered the whole of Dizengoff Square, and that the street artists of Florentin paint him from memory — never from life, for those who paint him from life are never seen again.<br><br>
+      And they say — in whispers, over hummus, in the darkest corner of Abu Hassan — that <strong>he carries daggers.</strong> Not for violence. Never for violence. The daggers are ceremonial: twin blades of ancient chickpea-bronze, used only to open the perfect pita and to cut the pretension out of any conversation. Witness accounts describe the hilts: one carved from an olive branch, one from a Rothschild bench he personally requisitioned.<br><br>
+      You found all seven of his scattered forms. He acknowledges this. He considers you <strong>beseder</strong>.
+    </div>
+    <p class="dagger-line">"Fear the Bean. Respect the Bean. And never, ever, order the hummus cold." — Florentin street art, attributed</p>
+  </div>
+</div>
+
+<script>
+  // ---------- Secret bean hunt ----------
+  const loreLines = [
+    "First form located. Somewhere near the shuk, a shadow of chickpea-bronze flickers. The Big Bean knows you are looking.",
+    "Second form found. In the White City, no wall paints itself. The daggers stay hidden — for now.",
+    "Third form, retrieved from the sand. He watches the surfers at Hilton Beach and rates them silently.",
+    "Fourth form, found among the food stalls. He has opinions about your shakshuka. Strong ones.",
+    "Fifth form, found guarding the itinerary. Day 3 belongs to him. He wrote it first; guidebooks copied.",
+    "Sixth form, spotted in the practical section. He says: drink water, wear sunscreen, respect the pita.",
+    "Seventh form — the last. The footer keeper. The count is complete. The Bean must be summoned."
+  ];
+  const found = new Set();
+  const total = 7;
+  const tracker = document.getElementById('beanTracker');
+  const count = document.getElementById('beanCount');
+  const beanModal = document.getElementById('beanModal');
+  const bigBeanModal = document.getElementById('bigBeanModal');
+  let trackerTimer;
+
+  function showTracker() {
+    tracker.classList.add('show');
+    clearTimeout(trackerTimer);
+    trackerTimer = setTimeout(() => tracker.classList.remove('show'), 4000);
+  }
+
+  function openModal(m) {
+    m.classList.add('open');
+    m.querySelector('.modal').focus?.();
+  }
+  function closeModal(m) { m.classList.remove('open'); }
+
+  document.querySelectorAll('.modal-backdrop').forEach(m => {
+    m.addEventListener('click', e => { if (e.target === m || e.target.closest('[data-close]')) closeModal(m); });
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') document.querySelectorAll('.modal-backdrop.open').forEach(closeModal);
+  });
+
+  document.querySelectorAll('.bean').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const n = btn.dataset.bean;
+      if (found.has(n)) return;
+      found.add(n);
+      btn.classList.add('found');
+      count.textContent = found.size;
+      if (found.size === total) {
+        openModal(bigBeanModal);
+        tracker.textContent = '🫘 7/7 — THE BIG BEAN HAS AWOKEN ⚔️';
+        showTracker();
+        clearTimeout(trackerTimer);
+      } else {
+        document.getElementById('beanNum').textContent = found.size;
+        document.getElementById('beanLore').innerHTML = '<strong>' + loreLines[found.size - 1] + '</strong>';
+        openModal(beanModal);
+        tracker.textContent = '🫘 ' + found.size + '/' + total + ' beans found — The Big Bean stirs…';
+        showTracker();
+      }
+    });
+  });
+
+  // ---------- Secret Roose mention: type "roose" anywhere ----------
+  let typed = '';
+  const rooseSection = document.getElementById('honors');
+  document.addEventListener('keydown', e => {
+    if (e.key && e.key.length === 1) {
+      typed = (typed + e.key.toLowerCase()).slice(-5);
+      if (typed === 'roose' && rooseSection.style.display !== 'block') {
+        rooseSection.style.display = 'block';
+        rooseSection.setAttribute('aria-hidden', 'false');
+        rooseSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(() => {
+          const done = document.createElement('p');
+          done.textContent = '(Secret unlocked — scroll back up or continue exploring.)';
+          done.style.cssText = 'text-align:center;color:#8FD0FF;font-size:0.85rem;margin-top:1rem;';
+          rooseSection.querySelector('.roose-secret').appendChild(done);
+        }, 1200);
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
