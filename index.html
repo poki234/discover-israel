@@ -167,11 +167,16 @@
   .bean {
     position: absolute; z-index: 5;
     background: none; border: none; cursor: pointer;
-    font-size: 1.15rem; opacity: 0.13; filter: grayscale(0.6);
+    font-size: 1.45rem; opacity: 0.45;
+    animation: beanWiggle 3.2s ease-in-out infinite;
     transition: opacity 200ms ease, transform 200ms ease;
     padding: 6px; line-height: 1;
   }
-  .bean:hover { opacity: 0.85; transform: scale(1.25) rotate(-8deg); }
+  .bean:hover { opacity: 1; transform: scale(1.3) rotate(-8deg); animation-play-state: paused; }
+  @keyframes beanWiggle {
+    0%, 100% { transform: rotate(-7deg) scale(1); }
+    50% { transform: rotate(7deg) scale(1.14); }
+  }
   .bean.found { opacity: 0.9; filter: none; animation: beanPop 500ms ease; }
   @keyframes beanPop { 0% { transform: scale(1); } 50% { transform: scale(1.7) rotate(10deg); } 100% { transform: scale(1.15); } }
 
@@ -228,9 +233,91 @@
 
   .hint { text-align: center; color: var(--muted); font-size: 0.85rem; font-style: italic; margin-top: 2.5rem; opacity: 0.8; }
 
+  /* ---------- Custom scrollbar (bean-bronze) ---------- */
+  html { scrollbar-color: #8B5A2B #12242E; scrollbar-width: thin; }
+  ::-webkit-scrollbar { width: 12px; }
+  ::-webkit-scrollbar-track { background: #12242E; }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--sunset), #8B5A2B);
+    border-radius: 8px; border: 2px solid #12242E;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: var(--sky); }
+
+  /* ---------- Custom bean cursor ---------- */
+  body { cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='26' height='26'><g transform='rotate(-25 13 13)'><ellipse cx='13' cy='13' rx='9' ry='6.5' fill='%238B5A2B' stroke='%234A2F14' stroke-width='1.6'/><path d='M8 10.5 Q13 13.5 18 10.5' stroke='%23FDF6EC' stroke-width='1.6' fill='none' stroke-linecap='round'/></g></svg>") 4 4, auto; }
+  a, button, .bean, .map-pin { cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='26' height='26'><g transform='rotate(-25 13 13)'><ellipse cx='13' cy='13' rx='9' ry='6.5' fill='%23D97706' stroke='%234A2F14' stroke-width='1.6'/><path d='M8 10.5 Q13 13.5 18 10.5' stroke='%23FDF6EC' stroke-width='1.6' fill='none' stroke-linecap='round'/></g></svg>") 4 4, pointer; }
+  input, textarea { cursor: text; }
+  .cursor-bean {
+    position: fixed; z-index: 999; pointer-events: none;
+    font-size: 14px; user-select: none;
+    animation: cursorFade 700ms ease-out forwards;
+  }
+  @keyframes cursorFade {
+    from { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 0.9; }
+    to { transform: translate(-50%, -150%) scale(0.35) rotate(28deg); opacity: 0; }
+  }
+
+  /* ---------- Scroll-reveal ---------- */
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity 600ms ease, transform 600ms ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ---------- Interactive map ---------- */
+  .map-layout { display: grid; grid-template-columns: minmax(250px, 360px) 1fr; gap: 2rem; align-items: start; }
+  @media (max-width: 760px) { .map-layout { grid-template-columns: 1fr; } }
+  .map-frame {
+    position: relative; border-radius: var(--radius); box-shadow: var(--shadow);
+    overflow: hidden; border: 1px solid rgba(0,119,194,0.15);
+  }
+  .map-frame svg { display: block; width: 100%; height: auto; }
+  .map-pin { position: absolute; transform: translate(-50%, -50%); background: none; border: none; padding: 6px; z-index: 2; }
+  .map-pin .dot {
+    display: block; width: 15px; height: 15px; border-radius: 50%;
+    background: var(--sunset); border: 2.5px solid #fff;
+    box-shadow: 0 0 0 4px rgba(245,158,11,0.30), 0 3px 8px rgba(0,40,70,0.35);
+    transition: transform 200ms ease, background 200ms ease, box-shadow 200ms ease;
+  }
+  .map-pin:hover .dot, .map-pin.active .dot {
+    transform: scale(1.45); background: var(--coral);
+    box-shadow: 0 0 0 6px rgba(255,107,94,0.30), 0 3px 10px rgba(0,40,70,0.40);
+  }
+  .map-pin.active { z-index: 3; }
+  .map-panel { min-height: 230px; }
+  .map-note { font-size: 0.8rem; color: var(--muted); font-style: italic; margin-top: 0.7rem; }
+
+  /* ---------- Legend of the Big Bean ---------- */
+  .legend-band {
+    background:
+      radial-gradient(ellipse 80% 55% at 50% 0%, rgba(139,92,246,0.28), transparent),
+      linear-gradient(180deg, #171226 0%, #241A33 100%);
+    color: #E9DFF7;
+  }
+  .legend-band h2 { color: #D9C2FF; }
+  .legend-band .kicker { color: #B794F6; }
+  .bean-lore-card {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(183,148,246,0.25);
+    border-radius: 20px; padding: 2.4rem; box-shadow: var(--shadow-lift);
+  }
+  .bean-lore-card .big-paragraph {
+    font-family: 'Playfair Display', serif; font-size: 1.13rem; line-height: 2.05; color: #EDE4FA;
+  }
+  .bean-lore-card .big-paragraph strong { color: #C9A8F0; }
+  .lore-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1rem; margin-top: 1.8rem; }
+  .lore-fact { background: rgba(255,255,255,0.05); border-radius: 12px; padding: 1rem 1.1rem; font-size: 0.94rem; color: #CFC3E0; }
+  .lore-fact strong { display: block; color: #C9A8F0; font-family: 'Playfair Display', serif; margin-bottom: 0.25rem; }
+  .bean-files {
+    margin-top: 1.8rem; background: #0D0B12; border: 1px dashed rgba(201,168,240,0.45);
+    border-radius: 14px; padding: 1.7rem 1.8rem;
+  }
+  .bean-files h3 { color: #FF8B8B; font-size: 1.2rem; margin-bottom: 0.6rem; letter-spacing: 1px; }
+  .bean-files p, .bean-files li { color: #CFC3E0; font-size: 0.95rem; }
+  .bean-files ul { list-style: none; margin-top: 0.6rem; }
+  .bean-files li { padding: 0.32rem 0 0.32rem 1.6rem; position: relative; }
+  .bean-files li::before { content: '\25B8'; position: absolute; left: 0.3rem; color: #C9A8F0; }
+
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .hero::before, .hero::after, .bean.found { animation: none; }
+    .hero::before, .hero::after, .bean, .bean.found, .cursor-bean { animation: none; }
+    .cursor-bean { display: none; }
     * { transition: none !important; }
   }
 </style>
@@ -251,7 +338,9 @@
 
 <nav aria-label="Main navigation">
   <a href="#destinations">Destinations</a>
+  <a href="#map">Map</a>
   <a href="#telaviv">Tel Aviv</a>
+  <a href="#legend">The Legend</a>
   <a href="#beaches">Beaches</a>
   <a href="#food">Food</a>
   <a href="#itinerary">5-Day Plan</a>
@@ -332,6 +421,34 @@
 
     <!-- BEAN #1 -->
     <button class="bean" style="top: 12px; right: 4%;" data-bean="1" aria-label="a curious bean">🫘</button>
+  </div>
+</section>
+
+<!-- ============ INTERACTIVE MAP ============ -->
+<section id="map" class="tlv-band">
+  <div class="wrap">
+    <p class="kicker">Geography, Gamified</p>
+    <h2>Interactive Map of Israel</h2>
+    <p class="lead">Nine pins from north to south — tap one to preview the destination. Stylized map, honest distances.</p>
+    <div class="map-layout">
+      <div>
+        <div class="map-frame" id="mapFrame" role="group" aria-label="Stylized map of Israel with clickable destination pins">
+          <svg viewBox="0 0 300 560" aria-hidden="true">
+            <rect width="300" height="560" fill="#DCEEF9"/>
+            <text x="20" y="300" fill="#8FBBD4" font-size="12" font-family="Inter, sans-serif" letter-spacing="3" transform="rotate(-90 20 300)">MEDITERRANEAN SEA</text>
+            <text x="262" y="130" fill="#B9CBD6" font-size="10" font-family="Inter, sans-serif" letter-spacing="2" transform="rotate(90 262 130)">JORDAN</text>
+            <path d="M140,18 C152,42 150,72 144,96 C140,112 156,130 160,155 C165,185 180,205 176,240 C172,275 158,292 154,325 C150,358 164,382 160,418 C156,448 146,468 144,500 C143,522 132,538 120,540 C105,542 95,528 100,510 C106,488 96,470 100,448 C104,425 92,408 98,385 C104,360 92,340 98,315 C104,290 94,268 100,240 C106,215 96,195 102,170 C108,145 100,120 108,95 C116,70 112,45 118,24 C124,8 134,6 140,18 Z" fill="#EFD9A7" stroke="#C09B5D" stroke-width="2.5" stroke-linejoin="round"/>
+            <ellipse cx="150" cy="352" rx="7" ry="26" fill="#BFE3F2" stroke="#8FBBD4" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <p class="map-note">Stylized map — not to scale. Real Israel is even better looking.</p>
+      </div>
+      <div class="map-panel card" id="mapPanel">
+        <h3>🗺️ Pick a pin</h3>
+        <p>Every golden dot is a destination from this guide. Click one to preview what waits there — the vibe, the highlight, and why it earns its place.</p>
+        <span class="tag">9 pins · north to south</span>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -467,6 +584,41 @@
   </div>
 </section>
 
+<!-- ============ THE LEGEND OF THE BIG BEAN ============ -->
+<section id="legend" class="legend-band">
+  <div class="wrap">
+    <p class="kicker">Local Legend · Extremely Classified</p>
+    <h2>The Legend of the Big Bean</h2>
+    <div class="bean-lore-card">
+      <p class="big-paragraph">
+        Ask anyone in Jaffa what moves through the Carmel Market at 3 a.m., and they will suddenly remember urgent business elsewhere. <em>The Big Bean</em> — first of his name, last of the legume lords — has walked this land since before the Bauhaus blocks, before the boulevards, before the hummus had opinions. He carries the <strong>twin daggers</strong> of chickpea-bronze, ceremonial blades forged in the depths of the Big Bean Lair: one hilt carved from an ancient olive branch, one reclaimed from a Rothschild bench he personally requisitioned. They have never drawn blood. They have opened ten thousand perfect pitas, and cut the pretension out of every conversation he has ever entered. He collects <strong>retro gubbys</strong> — retro only, never modern; a modern gubby once offended him so deeply that the vendor relocated to Eilat. At his side forever walks <strong>The Ziddler</strong>, his accomplice and only confidant: seen by none, wanted in three shuks, blamed for everything, confirmed by nothing. When the sun goes down, the Bean sits enthroned in his lair playing <strong>Forsaken</strong> until sunrise — undefeated, untouchable, occasionally whispering "skill issue" at the screen. And he <strong>LOVES beans</strong> — loves them the way the sea loves the shore, the way Florentin loves 4 a.m. — a devotion so absolute that scholars simply call it The Devotion. Mark <strong>December 22nd</strong> on every calendar you own: the day the <strong>Bean Files</strong> were discovered, the day the world learned how deep the mythology goes.
+      </p>
+      <div class="lore-facts">
+        <div class="lore-fact"><strong>⚔️ The Daggers</strong>Chickpea-bronze, ceremonial, pita-perfect. Never drawn in anger.</div>
+        <div class="lore-fact"><strong>🧸 Retro Gubbys</strong>Collector's passion. Retro only. Modern gubbys are forbidden in the Lair.</div>
+        <div class="lore-fact"><strong>🌀 The Ziddler</strong>Accomplice. Phantom. Wanted in three shuks. Appearing in zero photos.</div>
+        <div class="lore-fact"><strong>🎮 Forsaken</strong>Played nightly until sunrise. Undefeated. Allegedly.</div>
+        <div class="lore-fact"><strong>🫘 Beans</strong>Loved. LOVED. Capital letters required by ancient law.</div>
+        <div class="lore-fact"><strong>📅 December 22nd</strong>The day the Bean Files were discovered. Never forget.</div>
+      </div>
+      <div class="bean-files">
+        <h3>🗄️ THE BEAN FILES — DECLASSIFIED</h3>
+        <p>Recovered on <strong>December 22nd</strong> from an undisclosed drive, the Bean Files remain the only surviving record of the Lair's inner circle. The names below appear exactly as the Files list them:</p>
+        <ul>
+          <li><strong>Spencer</strong> — listed among the victims</li>
+          <li><strong>Nick</strong> — listed among the victims</li>
+          <li><strong>Roose</strong> — listed among the victims (yes, that Roose — the Wing remembers)</li>
+          <li><strong>Tombmass</strong> — listed among the victims</li>
+          <li><strong>Mack</strong> — listed among the victims</li>
+          <li><strong>The Ziddler</strong> — listed as accomplice</li>
+          <li><strong>Location:</strong> the Big Bean Lair — coordinates withheld for your safety</li>
+        </ul>
+        <p style="margin-top: 0.8rem;">Historians still debate what "victims" means: victims of pranks, of ambush hugs, or of the Bean's 3 a.m. shakshuka opinions. The Files do not clarify. The Files never clarify.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ SECRET: ROOSE ============ -->
 <section id="honors" style="display: none;" aria-hidden="true">
   <div class="wrap">
@@ -483,7 +635,7 @@
 <footer>
   <p><strong class="serif" style="color:#fff;">Discover Israel &amp; Tel Aviv</strong> — a high-detail fan-made travel guide.</p>
   <p style="margin-top: 0.4rem;">Check current travel advisories before booking. Prices and opening hours shift; shuks never do.</p>
-  <p style="margin-top: 1.2rem; font-size: 0.8rem; opacity: 0.7;">Some beans hide here. They remember everything. 🫘<!-- BEAN #7, the footer keeper --><button class="bean" style="position: static;" data-bean="7" aria-label="the last bean">🫘</button></p>
+  <p style="margin-top: 1.2rem; font-size: 0.8rem; opacity: 0.7;">The beans are easier to spot now — they wiggle. And legends say typing certain words wakes them all at once. 🫘<!-- BEAN #7, the footer keeper --><button class="bean" style="position: static;" data-bean="7" aria-label="the last bean">🫘</button></p>
 </footer>
 
 <div class="bean-tracker" id="beanTracker">🫘 <span id="beanCount">0</span>/7 beans found — The Big Bean stirs…</div>
@@ -505,10 +657,11 @@
     <span class="big">🫘⚔️</span>
     <h3 id="bigBeanTitle" style="text-align:center;">THE BIG BEAN HAS AWOKEN</h3>
     <div class="lore">
-      Long before Jaffa had a name, before Rothschild had a boulevard, there was <strong>The Big Bean</strong> — a legume of impossible size and unfathomable purpose.<br><br>
-      They say he patrols the Carmel Market at 3 a.m., tasting nothing, judging everything. They say his shadow once covered the whole of Dizengoff Square, and that the street artists of Florentin paint him from memory — never from life, for those who paint him from life are never seen again.<br><br>
-      And they say — in whispers, over hummus, in the darkest corner of Abu Hassan — that <strong>he carries daggers.</strong> Not for violence. Never for violence. The daggers are ceremonial: twin blades of ancient chickpea-bronze, used only to open the perfect pita and to cut the pretension out of any conversation. Witness accounts describe the hilts: one carved from an olive branch, one from a Rothschild bench he personally requisitioned.<br><br>
-      You found all seven of his scattered forms. He acknowledges this. He considers you <strong>beseder</strong>.
+      Long before Jaffa had a name, there was <strong>The Big Bean</strong> — a legume of impossible size and unfathomable purpose.<br><br>
+      They say he patrols the Carmel Market at 3 a.m., tasting nothing, judging everything. They say his shadow once covered all of Dizengoff Square.<br><br>
+      And they say — in whispers, over hummus — that <strong>he carries daggers</strong>: twin blades of ancient chickpea-bronze. One hilt carved from an olive branch, the other from a Rothschild bench he personally requisitioned. Not for violence. For opening the perfect pita, and for cutting the pretension out of any conversation.<br><br>
+      He collects <strong>retro gubbys</strong> — retro only, never modern — and displays them in the Lair. He plays <strong>Forsaken</strong> until sunrise, undefeated. He <strong>LOVES beans</strong> the way the sea loves the shore. And beside him always: <strong>The Ziddler</strong>, accomplice of legend, wanted in three shuks, seen by none, blamed for everything.<br><br>
+      On <strong>December 22nd</strong>, the Bean Files surfaced — and the names inside them (Spencer. Nick. Roose. Tombmass. Mack.) became legend. You found all seven of his scattered forms. He acknowledges this. He considers you <strong>beseder</strong>.
     </div>
     <p class="dagger-line">"Fear the Bean. Respect the Bean. And never, ever, order the hummus cold." — Florentin street art, attributed</p>
   </div>
@@ -572,6 +725,84 @@
         showTracker();
       }
     });
+  });
+
+  // ---------- Scroll-reveal animations ----------
+  const revealTargets = document.querySelectorAll('.card, .fact, .day, .kicker, h2, .lead, .bean-lore-card, .bean-files, .map-layout');
+  revealTargets.forEach((el, i) => {
+    el.classList.add('reveal');
+    el.style.transitionDelay = (i % 4) * 70 + 'ms';
+  });
+  const revealIO = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (en.isIntersecting) { en.target.classList.add('visible'); revealIO.unobserve(en.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  revealTargets.forEach(el => revealIO.observe(el));
+
+  // ---------- Bean cursor trail (desktop, motion allowed) ----------
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (window.matchMedia('(pointer: fine)').matches && !reducedMotion) {
+    let lastTrail = 0;
+    document.addEventListener('mousemove', e => {
+      const now = performance.now();
+      if (now - lastTrail < 90) return;
+      lastTrail = now;
+      const b = document.createElement('div');
+      b.className = 'cursor-bean';
+      b.textContent = '🫘';
+      b.style.left = e.clientX + 'px';
+      b.style.top = e.clientY + 'px';
+      document.body.appendChild(b);
+      setTimeout(() => b.remove(), 750);
+    });
+  }
+
+  // ---------- Interactive map ----------
+  const MAP_PINS = [
+    { name: 'Haifa & Akko', x: 43, y: 27, tag: '1 hr north', text: "The terraced Bahá'í Gardens spill down Mount Carmel, and Akko hides a full Crusader city beneath its old-town streets — plus the best hummus in the north." },
+    { name: 'Sea of Galilee', x: 50, y: 23, tag: '2 hrs north', text: "Israel's freshwater heart: hot springs, the Jesus Trail, and kite-surfing when the wind arrives." },
+    { name: 'Nazareth', x: 45, y: 30, tag: '1.5 hrs north', text: 'The Basilica of the Annunciation, a recreated first-century village, and a legendary food scene around the old market.' },
+    { name: 'Caesarea', x: 38, y: 38, tag: '45 min north', text: "Herod's Roman port: a seaside amphitheatre still hosting concerts, Crusader walls, and aqueduct beaches." },
+    { name: 'Tel Aviv', x: 35, y: 47, tag: 'The White City', text: "Bauhaus blocks, beaches, markets and the Middle East's loudest food scene — the deep dive section below has the full neighborhood tour." },
+    { name: 'Jerusalem', x: 50, y: 52, tag: '1 hr east', text: "One square kilometre of Old City holds the Western Wall, the Holy Sepulchre and the Dome of the Rock. Walk the ramparts." },
+    { name: 'Masada', x: 53, y: 59, tag: 'Sunrise hike', text: "Herod's cliff-top fortress above the Dead Sea. Snake Path at dawn or cable car — either way, the views are colossal." },
+    { name: 'Dead Sea', x: 50, y: 65, tag: '1.5 hrs east', text: 'Float at 430 m below sea level in water ten times saltier than the ocean, then mud up at Ein Gedi or Ein Bokek.' },
+    { name: 'Eilat', x: 43, y: 92, tag: 'The Red Sea', text: 'Coral reefs for snorkelling, a dolphin reef, desert parks — and Egypt and Jordan as next-door neighbors.' }
+  ];
+  const mapFrame = document.getElementById('mapFrame');
+  const mapPanel = document.getElementById('mapPanel');
+  const mapPins = MAP_PINS.map((p, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'map-pin';
+    btn.style.left = p.x + '%';
+    btn.style.top = p.y + '%';
+    btn.title = p.name;
+    btn.setAttribute('aria-label', 'Show info for ' + p.name);
+    btn.innerHTML = '<span class="dot"></span>';
+    btn.addEventListener('click', () => selectPin(i));
+    mapFrame.appendChild(btn);
+    return btn;
+  });
+  function selectPin(i) {
+    const p = MAP_PINS[i];
+    mapPins.forEach((el, j) => el.classList.toggle('active', j === i));
+    mapPanel.innerHTML = '<h3>📍 ' + p.name + '</h3><p>' + p.text + '</p><span class="tag">' + p.tag + '</span>';
+  }
+
+  // ---------- Secret cheat: type "bean" to wake them all ----------
+  let beanBuf = '';
+  document.addEventListener('keydown', e => {
+    if (!e.key || e.key.length !== 1) return;
+    beanBuf = (beanBuf + e.key.toLowerCase()).slice(-4);
+    if (beanBuf === 'bean' && found.size < total) {
+      document.querySelectorAll('.bean').forEach(b => { b.classList.add('found'); found.add(b.dataset.bean); });
+      count.textContent = total;
+      tracker.textContent = '🫘 7/7 — unlocked by secret command ⚔️';
+      showTracker();
+      openModal(bigBeanModal);
+      beanBuf = '';
+    }
   });
 
   // ---------- Secret Roose mention: type "roose" anywhere ----------
